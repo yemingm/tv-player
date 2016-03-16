@@ -19,14 +19,14 @@ public class ChannelAPI extends BaseAPI<ChannelList> {
 
     @Override
     ChannelList onResult(Call call, String data) throws UpYunException {
-        Log.e(TAG, data);
+        Log.e(TAG, "haha"+data);
         Gson gson = new Gson();
         ChannelList channels = gson.fromJson(data, ChannelList.class);
         return channels;
     }
 
-    public Call getChannels(UIListener<ChannelList> uiListener, int id) {
-        String url = HOST + channels + "?api_key=" + KEY + "&id=" + id;
+    public Call getChannels(UIListener<ChannelList> uiListener, int categoryID) {
+        String url = HOST + channels + "?api_key=" + KEY + "&broadcast_category=" + categoryID+"&start=0&count=1000";
         return get(uiListener, url);
     }
 }

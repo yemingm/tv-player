@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Channels implements Serializable {
+public class Channel implements Serializable {
 
     @SerializedName("delay")
     @Expose
@@ -201,7 +201,7 @@ public class Channels implements Serializable {
 
     @Override
     public String toString() {
-        return "Channels{" +
+        return "Channel{" +
                 "broadcastCategory=" + broadcastCategory +
                 ", delay=" + delay +
                 ", channelName='" + channelName + '\'' +

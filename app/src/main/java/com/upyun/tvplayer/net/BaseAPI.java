@@ -1,5 +1,7 @@
 package com.upyun.tvplayer.net;
 
+import android.util.Log;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.upyun.tvplayer.Exception.RespException;
@@ -53,6 +55,7 @@ abstract class BaseAPI<T> {
             @Override
             public void onResponse(final Call call, final Response response) throws IOException {
                 final String resp = response.body().string();
+                Log.e(TAG, resp);
                 AsyncRun.run(new Runnable() {
                     @Override
                     public void run() {

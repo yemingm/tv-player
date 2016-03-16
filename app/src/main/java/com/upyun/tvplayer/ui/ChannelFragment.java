@@ -3,6 +3,7 @@ package com.upyun.tvplayer.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.upyun.tvplayer.net.ChannelAPI;
 
 public class ChannelFragment extends Fragment {
 
+    private static final String TAG = "ChannelFragment";
     private Category mCategory;
     private ChannelFragAdapter mChannelFragAdapter;
 
@@ -34,6 +36,7 @@ public class ChannelFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        Log.e(TAG, "onViewCreated");
         ListView lvChannel = (ListView) view.findViewById(R.id.lv_channel);
         mChannelFragAdapter = new ChannelFragAdapter(null, getContext());
         lvChannel.setAdapter(mChannelFragAdapter);

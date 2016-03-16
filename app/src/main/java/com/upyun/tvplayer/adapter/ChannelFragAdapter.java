@@ -39,7 +39,7 @@ public class ChannelFragAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView textView = new TextView(mContext);
-        textView.setText(channelList.getChannels().getChannelName());
+        textView.setText(channelList.getChannels().get(position).getChannelName());
         textView.setTextSize(30);
         return textView;
     }

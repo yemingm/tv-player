@@ -12,8 +12,6 @@ import com.upyun.tvplayer.net.CategoryAPI;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class SplashActivity extends BaseActivity {
 
@@ -34,15 +32,18 @@ public class SplashActivity extends BaseActivity {
                 List<Category> categories = Arrays.asList(result);
                 intent.putExtra("categories", (Serializable) categories);
                 Log.e(TAG, categories.toString());
-                TimerTask timerTask = new TimerTask() {
-                    @Override
-                    public void run() {
-                        startActivity(intent);
-                        finish();
-                    }
-                };
-                Timer timer = new Timer();
-                timer.schedule(timerTask, 3000);
+//                TimerTask timerTask = new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                };
+//                Timer timer = new Timer();
+//                timer.schedule(timerTask, 3000);
+
+                startActivity(intent);
+                finish();
 
             }
 
