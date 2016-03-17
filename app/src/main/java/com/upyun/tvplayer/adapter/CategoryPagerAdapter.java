@@ -39,7 +39,7 @@ public class CategoryPagerAdapter extends FragmentPagerAdapter implements IconPa
     public Fragment getItem(int position) {
 //        return TestFragment.newInstance(CONTENT[position % CONTENT.length]);
 //        ChannelFragment fragment = new ChannelFragment();
-//        fragment.setmCategory(mCategories.get(position));
+//        fragment.setCategory(mCategories.get(position));
 //        return fragment;
         return ChannelFragment.newInstance(mCategories.get(position));
     }

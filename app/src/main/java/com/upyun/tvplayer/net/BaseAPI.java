@@ -47,7 +47,7 @@ abstract class BaseAPI<T> {
                 AsyncRun.run(new Runnable() {
                     @Override
                     public void run() {
-                        uiListener.onSuccessed(e);
+                        uiListener.onFailed(e);
                     }
                 });
             }
@@ -62,22 +62,22 @@ abstract class BaseAPI<T> {
                         int code = -1;
                         String data = null;
                         if (!response.isSuccessful()) {
-                            uiListener.onfailed(new RespException(resp, response.code()));
+                            uiListener.onFailed(new RespException(resp, response.code()));
                         } else {
                             JsonObject object = new JsonParser().parse(resp).getAsJsonObject();
                             code = object.get("code").getAsInt();
                             data = object.get("data").toString();
                         }
                         if (code != 0) {
-                            uiListener.onfailed(new UpYunException("wrong code:" + code));
+                            uiListener.onFailed(new UpYunException("wrong code:" + code));
                         } else {
                             T result = null;
                             try {
                                 result = onResult(call, data);
                             } catch (UpYunException e) {
-                                uiListener.onfailed(e);
+                                uiListener.onFailed(e);
                             }
-                            uiListener.onSuccessed(result);
+                            uiListener.onSucceed(result);
                         }
                     }
                 });

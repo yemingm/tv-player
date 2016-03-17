@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChannelList implements Serializable {
+public class ChannelData implements Serializable {
     @SerializedName("count")
     @Expose
     private Integer count;
@@ -74,7 +74,7 @@ public class ChannelList implements Serializable {
 
     @Override
     public String toString() {
-        return "ChannelList{" +
+        return "ChannelData{" +
                 "channels=" + channels +
                 ", count=" + count +
                 ", total=" + total +

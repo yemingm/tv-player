@@ -5,8 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.upyun.tvplayer.R;
+import com.upyun.tvplayer.model.Program;
 import com.upyun.tvplayer.ui.ProgramFragment;
 import com.viewpagerindicator.IconPagerAdapter;
+
+import java.util.List;
 
 public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
 
@@ -17,15 +20,18 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
     };
 
     private int mCount = CONTENT.length;
+    private List<Program> mPrograms;
 
-    public ProgramPagerAdapter(FragmentManager fm) {
+    public ProgramPagerAdapter(FragmentManager fm,List<Program> programs) {
         super(fm);
+        this.mPrograms = programs;
     }
 
     @Override
     public Fragment getItem(int position) {
-//        return TestFragment.newInstance(CONTENT[position % CONTENT.length]);
-        return ProgramFragment.newInstance(position);
+        //模拟数据
+//        return ProgramFragment.newInstance(mPrograms.get(position));
+        return ProgramFragment.newInstance(new Program());
     }
 
     @Override

@@ -3,20 +3,26 @@ package com.upyun.tvplayer.activity;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.upyun.tvplayer.R;
 import com.upyun.tvplayer.listener.UIListener;
 import com.upyun.tvplayer.model.Category;
+import com.upyun.tvplayer.model.Program;
 import com.upyun.tvplayer.net.CategoryAPI;
+import com.upyun.tvplayer.net.ProgramAPI;
+import com.upyun.tvplayer.util.SharedPreferencesUtils;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements UIListener {
 
     private static final String TAG = "SplashActivity";
-    Category[] mCategories;
+    ImageView mIvBackground;
+    private boolean isCategoryGet;
+    private boolean isProgramGet;
 
     @Override
     protected void initVariables() {
@@ -25,40 +31,48 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void loadDate() {
         CategoryAPI categoryAPI = new CategoryAPI();
-        categoryAPI.getCategory(new UIListener<Category[]>() {
-            @Override
-            public void onSuccessed(Category[] result) {
-                final Intent intent = new Intent(SplashActivity.this, TVPlayerActivity.class);
-                List<Category> categories = Arrays.asList(result);
-                intent.putExtra("categories", (Serializable) categories);
-                Log.e(TAG, categories.toString());
-//                TimerTask timerTask = new TimerTask() {
-//                    @Override
-//                    public void run() {
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//                };
-//                Timer timer = new Timer();
-//                timer.schedule(timerTask, 3000);
-
-                startActivity(intent);
-                finish();
-
-            }
-
-            @Override
-            public void onfailed(Exception e) {
-                Log.e(TAG, "获取频道分类失败");
-            }
-
-        });
+        categoryAPI.getCategory(this);
+        ProgramAPI channelAPI = new ProgramAPI();
+        channelAPI.getProgram(this, ProgramAPI.Week.this_week, ProgramAPI.WeekDay.Sun, SharedPreferencesUtils.getChannel(this));
     }
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_splash);
-        ImageView imageView = (ImageView) findViewById(R.id.iv_splash);
-        imageView.setImageResource(R.drawable.splash_background);
+        mIvBackground = (ImageView) findViewById(R.id.iv_splash);
+        mIvBackground.setImageResource(R.drawable.splash_background);
+    }
+
+    @Override
+    public void onSucceed(Object result) {
+        final Intent intent = new Intent(SplashActivity.this, TVPlayerActivity.class);
+
+        if (result instanceof Category[]) {
+            List<Category> categories = Arrays.asList((Category[]) result);
+            intent.putExtra("categories", (Serializable) categories);
+            Log.e(TAG, categories.toString());
+            isCategoryGet = true;
+        } else if (result instanceof Program[]) {
+            List<Program> programs = Arrays.asList((Program[]) result);
+            intent.putExtra("programs", (Serializable) programs);
+            Log.e(TAG, programs.toString());
+            isProgramGet = true;
+        }
+
+        if (isCategoryGet && isProgramGet) {
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
+    public void onFailed(Exception e) {
+        Toast.makeText(SplashActivity.this, "初始化数据失败", Toast.LENGTH_LONG).show();
+        mIvBackground.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 1000);
     }
 }

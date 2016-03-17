@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.chnvideo.smp.sdk.SmpFrameLayout
-        android:id="@+id/video_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center">
+    <include layout="@layout/view_play_content" />
 
-        <SurfaceView
-            android:id="@+id/surface_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center" />
+    <include
+        android:id="@+id/view_channel"
+        layout="@layout/view_menu_channel" />
 
-        <ProgressBar
-            android:id="@+id/shutter"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-    </com.chnvideo.smp.sdk.SmpFrameLayout>
-</RelativeLayout>
+    <include
+        android:id="@+id/view_program"
+        layout="@layout/view_menu_program" />
+
+</android.support.v4.widget.DrawerLayout>

@@ -3,12 +3,14 @@ package com.upyun.tvplayer.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.chnvideo.smp.sdk.SmoothStreamingTestMediaDrmCallback;
 import com.chnvideo.smp.sdk.SmpFrameLayout;
@@ -19,20 +21,28 @@ import com.chnvideo.smp.sdk.engine.HlsRendererBuilder;
 import com.chnvideo.smp.sdk.engine.SmoothStreamingRendererBuilder;
 import com.chnvideo.smp.sdk.engine.Smp;
 import com.chnvideo.smp.sdk.engine.SmpEngine;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.upyun.tvplayer.R;
 import com.upyun.tvplayer.adapter.CategoryPagerAdapter;
 import com.upyun.tvplayer.adapter.ProgramPagerAdapter;
 import com.upyun.tvplayer.model.Category;
+import com.upyun.tvplayer.model.Channel;
+import com.upyun.tvplayer.model.Program;
+import com.upyun.tvplayer.model.ProgramList;
 import com.upyun.tvplayer.ui.QuitAlertDialog;
+import com.upyun.tvplayer.util.SharedPreferencesUtils;
 import com.viewpagerindicator.TitlePageIndicator;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
 
 public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener {
     private static final String TAG = "TVPlayerActivity";
-    private SlidingMenu mMenu;
+    private DrawerLayout mDrawer;
+    private View mMenuChannnel;
+    private View mMenuProgram;
     private TitlePageIndicator mTitleCategory;
     private TitlePageIndicator mTitleProgram;
     private ViewPager mPagerCategory;
@@ -41,14 +51,10 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     private ProgramPagerAdapter mAdapterProgram;
     private List<Category> mCategories;
 
-    private static final int SHOW_CONT = 1001;
-    private static final int SHOW_MENU = 1002;
-    private static final int SHOW_INFO = 1003;
-    private int state = SHOW_CONT;
-
-    private String playAddress = "http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch1/appleman.m3u8";
+    //    private String playAddress = "http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch1/02/prog_index.m3u8";
+//    private String playAddress = "http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch1/appleman.m3u8";
 //    private String playAddress = "rtmp://124.207.19.118:1935/live/jctx";
-//    private String playAddress = "http://live.dltv.cn:81/live5/live5_video.m3u8";
+    private String playAddress = "http://live.dltv.cn:81/live5/live5_video.m3u8";
 
     public static final int TYPE_DASH = 0;
     public static final int TYPE_SS = 1;
@@ -63,6 +69,8 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     private View shutterView = null;
     private SurfaceView surfaceView;
     private Smp smp = new Smp();
+    private boolean isMenuShow;
+    private List<Program> mPrograms;
 
     @Override
     protected void initVariables() {
@@ -72,55 +80,35 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Intent intent = getIntent();
         mCategories = (List<Category>) intent.getSerializableExtra("categories");
-        Log.e(TAG, mCategories.toString());
+        mPrograms = (List<Program>) intent.getSerializableExtra("programs");
+        Log.e(TAG, mCategories + ":::" + mPrograms);
+
+        String lastPath = SharedPreferencesUtils.getURL(this);
+        if (lastPath != null) {
+            playAddress = lastPath;
+        }
+    }
+
+    @Subscribe
+    public void onEvent(Channel channel) {
+        //TODO
+//        stopPlay();
+//        startPlay(channel.getInputAndOutput().get(0).getOutputUrl());
+//        SharedPreferencesUtils.saveChannel(this,channel.getId());
+//        SharedPreferencesUtils.saveURL(this, channel.getInputAndOutput().get(0).getOutputUrl());
+        Toast.makeText(this, channel.getChannelName(), Toast.LENGTH_SHORT).show();
+        Log.e(TAG, channel.toString());
+    }
+
+    @Subscribe
+    public void onEvent(ProgramList programList) {
+        Toast.makeText(this, programList.getProgramName(), Toast.LENGTH_SHORT).show();
+        Log.e(TAG, programList.toString());
     }
 
     @Override
     protected void loadDate() {
-//        CategoryAPI categoryAPI = new CategoryAPI();
-//        categoryAPI.getCategory(new UIListener<Category[]>() {
-//            @Override
-//            public void onSuccessed(Category[] result) {
-//                mAdapterCategory.setmCategorys(result);
-//                mAdapterCategory.notifyDataSetChanged();
-//                Log.e(TAG, Arrays.toString(result));
-//            }
-//            @Override
-//            public void onfailed(Exception e) {
-//                Log.e(TAG, "获取频道分类失败");
-//            }
-//
-//        });
-//
-//        ChannelAPI channelAPI = new ChannelAPI();
-//        channelAPI.getChannels(new UIListener<ChannelList>() {
-//            @Override
-//            public void onSuccessed(ChannelList result) {
-//                Log.e(TAG, result.toString());
-//                Toast.makeText(TVPlayerActivity.this, result.toString(), Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onfailed(Exception e) {
-//                Log.e(TAG, "获取频道失败");
-//                Toast.makeText(TVPlayerActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-//            }
-//        }, 100);
-//
-//        ProgramAPI programAPI = new ProgramAPI();
-//        programAPI.getProgram(new UIListener<Program>() {
-//            @Override
-//            public void onSuccessed(Program result) {
-//                Log.e(TAG, result.toString());
-//                Toast.makeText(TVPlayerActivity.this, result.toString(), Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onfailed(Exception e) {
-//                Log.e(TAG, "获取频道失败");
-//                Toast.makeText(TVPlayerActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-//            }
-//        }, ProgramAPI.Week.next_week, ProgramAPI.WeekDay.Thu,100);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -129,44 +117,38 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         videoFrame = (SmpFrameLayout) findViewById(R.id.video_frame);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         shutterView = findViewById(R.id.shutter);
-
-        mMenu = new SlidingMenu(this);
-        mMenu.setMode(SlidingMenu.LEFT_RIGHT);
-        mMenu.setMenu(R.layout.view_menu_channel);
-        mMenu.setSecondaryMenu(R.layout.view_menu_item);
-        mTitleCategory = (TitlePageIndicator) mMenu.getMenu().findViewById(R.id.title_channel);
-        mTitleProgram = (TitlePageIndicator) mMenu.getSecondaryMenu().findViewById(R.id.title_item);
-        mPagerCategory = (ViewPager) mMenu.getMenu().findViewById(R.id.pager_channel);
-        mPageProgram = (ViewPager) mMenu.getSecondaryMenu().findViewById(R.id.pager_item);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer);
+        mMenuChannnel = findViewById(R.id.view_channel);
+        mMenuProgram = findViewById(R.id.view_program);
+        mTitleCategory = (TitlePageIndicator) findViewById(R.id.title_channel);
+        mTitleProgram = (TitlePageIndicator) findViewById(R.id.title_item);
+        mPagerCategory = (ViewPager) findViewById(R.id.pager_channel);
+        mPageProgram = (ViewPager) findViewById(R.id.pager_item);
 
         mAdapterCategory = new CategoryPagerAdapter(getSupportFragmentManager(), mCategories, this);
-        mAdapterProgram = new ProgramPagerAdapter(getSupportFragmentManager());
+        mAdapterProgram = new ProgramPagerAdapter(getSupportFragmentManager(), mPrograms);
         mPagerCategory.setAdapter(mAdapterCategory);
         mPageProgram.setAdapter(mAdapterProgram);
         mTitleCategory.setViewPager(mPagerCategory);
         mTitleProgram.setViewPager(mPageProgram);
         mTitleCategory.setTextColor(R.color.black);
         mTitleProgram.setTextColor(R.color.black);
-        mMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        mMenu.setFadeDegree(0.35f);
-        mMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
-        mMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
     }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
 //        Log.e(TAG, event.getKeyCode() + "" + event);
-        if (!mMenu.isMenuShowing()) {
+        if (!isMenuShow) {
             switch (event.getKeyCode()) {
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    mMenu.showMenu();
-                    mMenu.getMenu().requestFocus();
-                    state = SHOW_MENU;
+                    mDrawer.openDrawer(mMenuChannnel);
+                    mMenuChannnel.requestFocus();
+                    isMenuShow = true;
                     return true;
                 case KeyEvent.KEYCODE_DPAD_LEFT:
-                    mMenu.showSecondaryMenu();
-                    mMenu.getSecondaryMenu().requestFocus();
-                    state = SHOW_MENU;
+                    mDrawer.openDrawer(mMenuProgram);
+                    mMenuProgram.requestFocus();
+                    isMenuShow = true;
                     return true;
             }
         }
@@ -175,9 +157,10 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
 
     @Override
     public void onBackPressed() {
-        if (mMenu.isMenuShowing()) {
-            mMenu.showContent();
-            return;
+        if (isMenuShow) {
+            mDrawer.closeDrawer(mMenuProgram);
+            mDrawer.closeDrawer(mMenuChannnel);
+            isMenuShow = false;
         } else {
             QuitAlertDialog.show(this);
         }
@@ -186,6 +169,16 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     @Override
     protected void onResume() {
         super.onResume();
+        startPlay(playAddress);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopPlay();
+    }
+
+    private void startPlay(String playAddress) {
         contentUri = Uri.parse(playAddress);
         try {
             smp.init(getRendererBuilder(), TVPlayerActivity.this, surfaceView.getHolder());
@@ -195,9 +188,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+    private void stopPlay() {
         try {
             smp.release();
         } catch (Smp.SmpException e) {
@@ -276,8 +267,5 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees,
                                    float pixelWidthAspectRatio) {
         shutterView.setVisibility(View.GONE);
-        videoFrame.setAspectRatio(
-                height == 0 ? 1 : (width * pixelWidthAspectRatio) / height);
-        Log.d(TAG, "width == " + width + ", height == " + height);
     }
 }

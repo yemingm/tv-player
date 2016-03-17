@@ -7,16 +7,19 @@ import com.upyun.tvplayer.model.Program;
 
 import okhttp3.Call;
 
-public class ProgramAPI extends BaseAPI<Program> {
+public class ProgramAPI extends BaseAPI<Program[]> {
 
     @Override
-    Program onResult(Call call, String data) throws UpYunException {
+    Program[] onResult(Call call, String data) throws UpYunException {
+        if(data.equals("{}")) {
+            return new Program[]{};
+        }
         Gson gson = new Gson();
-        Program program = gson.fromJson(data, Program.class);
+        Program[] program = gson.fromJson(data, Program[].class);
         return program;
     }
 
-    public Call getProgram(UIListener<Program> uiListener, Week week, WeekDay weekDay, int channelId) {
+    public Call getProgram(UIListener<Program[]> uiListener, Week week, WeekDay weekDay, int channelId) {
         String url = HOST + program + "?api_key=" + KEY + "&channel_id=" + channelId + "&week=" + week + "&week_day=" + weekDay;
         System.out.println(url);
         return get(uiListener, url);

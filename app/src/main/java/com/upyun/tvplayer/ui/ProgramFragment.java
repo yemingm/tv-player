@@ -6,28 +6,27 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.upyun.tvplayer.R;
-import com.upyun.tvplayer.adapter.ProgramFragAdapter;
+import com.upyun.tvplayer.adapter.ProgramListAdapter;
 import com.upyun.tvplayer.model.Program;
 
-public class ProgramFragment extends Fragment {
+import org.greenrobot.eventbus.EventBus;
 
-    public Program getmProgram() {
-        return mProgram;
-    }
+public class ProgramFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    public void setmProgram(Program mProgram) {
+    public void setProgram(Program mProgram) {
         this.mProgram = mProgram;
     }
 
     private Program mProgram;
-    private ProgramFragAdapter mProgramFragAdapter;
+    private ProgramListAdapter mProgramListAdapter;
 
-    public static ProgramFragment newInstance(int position) {
+    public static ProgramFragment newInstance(Program program) {
         ProgramFragment fragment = new ProgramFragment();
-//        fragment.setmProgram(program);
+        fragment.setProgram(program);
         return fragment;
     }
 
@@ -40,24 +39,13 @@ public class ProgramFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ListView lvProgram = (ListView) view.findViewById(R.id.lv_program);
-        mProgramFragAdapter = new ProgramFragAdapter(mProgram, getContext());
-        lvProgram.setAdapter(mProgramFragAdapter);
-        loadDate();
+        mProgramListAdapter = new ProgramListAdapter(mProgram, getContext());
+        lvProgram.setAdapter(mProgramListAdapter);
+        lvProgram.setOnItemClickListener(this);
     }
 
-    private void loadDate() {
-//        ChannelAPI channelAPI = new ChannelAPI();
-//        channelAPI.getChannels(new UIListener<ChannelList>() {
-//            @Override
-//            public void onSuccessed(ChannelList result) {
-//                mProgramFragAdapter.setChannelList(result);
-//                mProgramFragAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onfailed(Exception e) {
-//
-//            }
-//        }, mCategory.getId());
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        EventBus.getDefault().post(mProgramListAdapter.getItem(position));
     }
 }
