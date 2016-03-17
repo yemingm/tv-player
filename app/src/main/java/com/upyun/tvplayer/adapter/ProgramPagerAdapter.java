@@ -19,7 +19,6 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
             R.drawable.cover
     };
 
-    private int mCount = CONTENT.length;
     private List<Program> mPrograms;
 
     public ProgramPagerAdapter(FragmentManager fm,List<Program> programs) {
@@ -36,11 +35,18 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
 
     @Override
     public int getCount() {
-        return mCount;
+
+//        return mPrograms.size();
+        return CONTENT.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
+
+        //模拟数据
+//        SimpleDateFormat format = new SimpleDateFormat("mm-dd");
+//        Date date = new Date(mPrograms.get(position).getZeroTimestamp());
+//        return format.format(date);
         return ProgramPagerAdapter.CONTENT[position % CONTENT.length];
     }
 
@@ -49,10 +55,9 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
         return ICONS[0];
     }
 
-    public void setCount(int count) {
-        if (count > 0 && count <= 10) {
-            mCount = count;
-            notifyDataSetChanged();
-        }
-    }
+//    public void setCount(int count) {
+//        if (count > 0 && count <= 10) {
+//            notifyDataSetChanged();
+//        }
+//    }
 }

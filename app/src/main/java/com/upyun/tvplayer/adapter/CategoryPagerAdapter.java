@@ -69,10 +69,4 @@ public class CategoryPagerAdapter extends FragmentPagerAdapter implements IconPa
 //            notifyDataSetChanged();
 //        }
 //    }
-
-    @Override
-    public int getItemPosition(Object object) {
-        // TODO Auto-generated method stub
-        return POSITION_NONE;
-    }
 }
