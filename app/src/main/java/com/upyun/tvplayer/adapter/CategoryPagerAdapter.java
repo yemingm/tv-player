@@ -26,7 +26,7 @@ public class CategoryPagerAdapter extends FragmentPagerAdapter implements IconPa
 
     @Override
     public Fragment getItem(int position) {
-        return new ChannelFragment(mCategories.get(position));
+        return ChannelFragment.newInstance(mCategories.get(position));
     }
 
     @Override

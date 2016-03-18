@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.upyun.tvplayer.R;
 import com.upyun.tvplayer.adapter.ProgramListAdapter;
+import com.upyun.tvplayer.model.Category;
 import com.upyun.tvplayer.model.Program;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,12 +25,10 @@ public class ProgramFragment extends Fragment implements AdapterView.OnItemClick
     private Program mProgram;
     private ProgramListAdapter mProgramListAdapter;
 
-    public ProgramFragment(){
-
-    }
-
-    public ProgramFragment(Program program) {
-        setProgram(program);
+    public static ProgramFragment newInstance(Program program) {
+        ProgramFragment programFragment = new ProgramFragment();
+        programFragment.setProgram(program);
+        return programFragment;
     }
 
     @Nullable

@@ -25,12 +25,10 @@ public class ChannelFragment extends Fragment implements AdapterView.OnItemClick
     private Category mCategory;
     private ChannelListAdapter mChannelListAdapter;
 
-    public ChannelFragment(){
-
-    }
-
-    public ChannelFragment(Category category) {
-        setCategory(category);
+    public static ChannelFragment newInstance(Category Category) {
+        ChannelFragment fragment = new ChannelFragment();
+        fragment.setCategory(Category);
+        return fragment;
     }
 
     @Nullable
@@ -50,19 +48,22 @@ public class ChannelFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     private void loadDate() {
-        ChannelAPI channelAPI = new ChannelAPI();
-        channelAPI.getChannels(new UIListener<ChannelData>() {
-            @Override
-            public void onSucceed(ChannelData result) {
-                mChannelListAdapter.setChannelData(result);
-                mChannelListAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailed(Exception e) {
+        if (mCategory != null) {
+            ChannelAPI channelAPI = new ChannelAPI();
+            channelAPI.getChannels(new UIListener<ChannelData>() {
+                @Override
+                public void onSucceed(ChannelData result) {
+                    mChannelListAdapter.setChannelData(result);
+                    mChannelListAdapter.notifyDataSetChanged();
+                }
 
-            }
-        }, mCategory.getId());
+                @Override
+                public void onFailed(Exception e) {
+
+                }
+            }, mCategory.getId());
+        }
     }
 
     public Category getCategory() {

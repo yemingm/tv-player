@@ -30,8 +30,8 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
     public Fragment getItem(int position) {
         //TODO
         //模拟数据
-//        return new ProgramFragment(mPrograms.get(position));
-        return new ProgramFragment(new Program());
+//        return ProgramFragment.newInstance(mPrograms.get(position));
+        return ProgramFragment.newInstance(new Program());
     }
 
     @Override
