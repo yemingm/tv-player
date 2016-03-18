@@ -1,6 +1,5 @@
 package com.upyun.tvplayer.activity;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -29,6 +28,7 @@ import com.upyun.tvplayer.model.Channel;
 import com.upyun.tvplayer.model.Program;
 import com.upyun.tvplayer.model.ProgramList;
 import com.upyun.tvplayer.ui.QuitAlertDialog;
+import com.upyun.tvplayer.util.MyApplication;
 import com.upyun.tvplayer.util.SharedPreferencesUtils;
 import com.viewpagerindicator.TitlePageIndicator;
 
@@ -78,9 +78,14 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        Intent intent = getIntent();
-        mCategories = (List<Category>) intent.getSerializableExtra("categories");
-        mPrograms = (List<Program>) intent.getSerializableExtra("programs");
+
+        //盒子性能太差 Intent传递数据可能丢失
+//        Intent intent = getIntent();
+//        mCategories = (List<Category>) intent.getSerializableExtra("categories");
+//        mPrograms = (List<Program>) intent.getSerializableExtra("programs");
+
+        mCategories = ((MyApplication) getApplication()).getCategories();
+        mPrograms = ((MyApplication) getApplication()).getPrograms();
         Log.e(TAG, mCategories + ":::" + mPrograms);
 
         String lastPath = SharedPreferencesUtils.getURL(this);
@@ -91,7 +96,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
 
     @Subscribe
     public void onEvent(Channel channel) {
-        //TODO
+        //TODO 切换频道
 //        stopPlay();
 //        startPlay(channel.getInputAndOutput().get(0).getOutputUrl());
 //        SharedPreferencesUtils.saveChannel(this,channel.getId());
@@ -102,6 +107,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
 
     @Subscribe
     public void onEvent(ProgramList programList) {
+        //TODO 切换节目单
         Toast.makeText(this, programList.getProgramName(), Toast.LENGTH_SHORT).show();
         Log.e(TAG, programList.toString());
     }
@@ -149,6 +155,12 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
                     mDrawer.openDrawer(mMenuProgram);
                     mMenuProgram.requestFocus();
                     isMenuShow = true;
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    //TODO
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    //TODO
                     return true;
             }
         }

@@ -11,9 +11,9 @@ import com.upyun.tvplayer.model.Category;
 import com.upyun.tvplayer.model.Program;
 import com.upyun.tvplayer.net.CategoryAPI;
 import com.upyun.tvplayer.net.ProgramAPI;
+import com.upyun.tvplayer.util.MyApplication;
 import com.upyun.tvplayer.util.SharedPreferencesUtils;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,16 +45,18 @@ public class SplashActivity extends BaseActivity implements UIListener {
 
     @Override
     public void onSucceed(Object result) {
-        final Intent intent = new Intent(SplashActivity.this, TVPlayerActivity.class);
+        Intent intent = new Intent(SplashActivity.this, TVPlayerActivity.class);
 
         if (result instanceof Category[]) {
             List<Category> categories = Arrays.asList((Category[]) result);
-            intent.putExtra("categories", (Serializable) categories);
+//            intent.putExtra("categories", (Serializable) categories);
+            ((MyApplication)getApplication()).setCategories(categories);
             Log.e(TAG, categories.toString());
             isCategoryGet = true;
         } else if (result instanceof Program[]) {
             List<Program> programs = Arrays.asList((Program[]) result);
-            intent.putExtra("programs", (Serializable) programs);
+//            intent.putExtra("programs", (Serializable) programs);
+            ((MyApplication)getApplication()).setPrograms(programs);
             Log.e(TAG, programs.toString());
             isProgramGet = true;
         }
