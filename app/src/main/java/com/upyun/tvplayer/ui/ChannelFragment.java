@@ -25,10 +25,12 @@ public class ChannelFragment extends Fragment implements AdapterView.OnItemClick
     private Category mCategory;
     private ChannelListAdapter mChannelListAdapter;
 
-    public static ChannelFragment newInstance(Category Category) {
-        ChannelFragment fragment = new ChannelFragment();
-        fragment.setCategory(Category);
-        return fragment;
+    public ChannelFragment(){
+
+    }
+
+    public ChannelFragment(Category category) {
+        setCategory(category);
     }
 
     @Nullable

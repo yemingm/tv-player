@@ -24,10 +24,12 @@ public class ProgramFragment extends Fragment implements AdapterView.OnItemClick
     private Program mProgram;
     private ProgramListAdapter mProgramListAdapter;
 
-    public static ProgramFragment newInstance(Program program) {
-        ProgramFragment fragment = new ProgramFragment();
-        fragment.setProgram(program);
-        return fragment;
+    public ProgramFragment(){
+
+    }
+
+    public ProgramFragment(Program program) {
+        setProgram(program);
     }
 
     @Nullable
