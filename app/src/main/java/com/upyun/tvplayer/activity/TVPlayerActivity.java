@@ -41,7 +41,7 @@ import java.util.List;
 public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener {
     private static final String TAG = "TVPlayerActivity";
     private DrawerLayout mDrawer;
-    private View mMenuChannnel;
+    private View mMenuChannel;
     private View mMenuProgram;
     private TitlePageIndicator mTitleCategory;
     private TitlePageIndicator mTitleProgram;
@@ -51,9 +51,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     private ProgramPagerAdapter mAdapterProgram;
     private List<Category> mCategories;
 
-    //    private String playAddress = "http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch1/02/prog_index.m3u8";
-//    private String playAddress = "http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch1/appleman.m3u8";
-//    private String playAddress = "rtmp://124.207.19.118:1935/live/jctx";
+    //    private String playAddress = "http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch1/appleman.m3u8";
     private String playAddress = "http://live.dltv.cn:81/live5/live5_video.m3u8";
 
     public static final int TYPE_DASH = 0;
@@ -97,9 +95,11 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     @Subscribe
     public void onEvent(Channel channel) {
         //TODO 切换频道
+//        SharedPreferencesUtils.saveURL(this,channel.getInputAndOutput().get(0).getOutputUrl());
+//        SharedPreferencesUtils.saveChannelId(this,channel.getId());
 //        stopPlay();
 //        startPlay(channel.getInputAndOutput().get(0).getOutputUrl());
-//        SharedPreferencesUtils.saveChannel(this,channel.getId());
+//        SharedPreferencesUtils.saveChannelId(this,channel.getId());
 //        SharedPreferencesUtils.saveURL(this, channel.getInputAndOutput().get(0).getOutputUrl());
         Toast.makeText(this, channel.getChannelName(), Toast.LENGTH_SHORT).show();
         Log.e(TAG, channel.toString());
@@ -124,14 +124,14 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         shutterView = findViewById(R.id.shutter);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer);
-        mMenuChannnel = findViewById(R.id.view_channel);
+        mMenuChannel = findViewById(R.id.view_channel);
         mMenuProgram = findViewById(R.id.view_program);
         mTitleCategory = (TitlePageIndicator) findViewById(R.id.title_channel);
         mTitleProgram = (TitlePageIndicator) findViewById(R.id.title_item);
         mPagerCategory = (ViewPager) findViewById(R.id.pager_channel);
         mPageProgram = (ViewPager) findViewById(R.id.pager_item);
 
-        mAdapterCategory = new CategoryPagerAdapter(getSupportFragmentManager(), mCategories, this);
+        mAdapterCategory = new CategoryPagerAdapter(getSupportFragmentManager(), mCategories);
         mAdapterProgram = new ProgramPagerAdapter(getSupportFragmentManager(), mPrograms);
         mPagerCategory.setAdapter(mAdapterCategory);
         mPageProgram.setAdapter(mAdapterProgram);
@@ -143,12 +143,12 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-//        Log.e(TAG, event.getKeyCode() + "" + event);
+
         if (!isMenuShow) {
             switch (event.getKeyCode()) {
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    mDrawer.openDrawer(mMenuChannnel);
-                    mMenuChannnel.requestFocus();
+                    mDrawer.openDrawer(mMenuChannel);
+                    mMenuChannel.requestFocus();
                     isMenuShow = true;
                     return true;
                 case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -171,7 +171,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     public void onBackPressed() {
         if (isMenuShow) {
             mDrawer.closeDrawer(mMenuProgram);
-            mDrawer.closeDrawer(mMenuChannnel);
+            mDrawer.closeDrawer(mMenuChannel);
             isMenuShow = false;
         } else {
             QuitAlertDialog.show(this);

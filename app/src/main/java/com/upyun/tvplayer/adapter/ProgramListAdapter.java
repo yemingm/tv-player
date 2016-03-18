@@ -21,6 +21,7 @@ public class ProgramListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        //TODO
 //        if(mProgram==null||mProgram.getProgramList()==null) {
 //            return 0;
 //        }
@@ -45,6 +46,7 @@ public class ProgramListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        //TODO listview 设计
         ProgramList programList = getItem(position);
 
         TextView textView = new TextView(mContext);

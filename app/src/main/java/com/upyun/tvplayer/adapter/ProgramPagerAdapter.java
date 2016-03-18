@@ -21,13 +21,14 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
 
     private List<Program> mPrograms;
 
-    public ProgramPagerAdapter(FragmentManager fm,List<Program> programs) {
+    public ProgramPagerAdapter(FragmentManager fm, List<Program> programs) {
         super(fm);
         this.mPrograms = programs;
     }
 
     @Override
     public Fragment getItem(int position) {
+        //TODO
         //模拟数据
 //        return ProgramFragment.newInstance(mPrograms.get(position));
         return ProgramFragment.newInstance(new Program());
@@ -35,14 +36,14 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
 
     @Override
     public int getCount() {
-
+        //TODO
 //        return mPrograms.size();
         return CONTENT.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-
+        //TODO
         //模拟数据
 //        SimpleDateFormat format = new SimpleDateFormat("mm-dd");
 //        Date date = new Date(mPrograms.get(position).getZeroTimestamp());
@@ -54,10 +55,4 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
     public int getIconResId(int index) {
         return ICONS[0];
     }
-
-//    public void setCount(int count) {
-//        if (count > 0 && count <= 10) {
-//            notifyDataSetChanged();
-//        }
-//    }
 }

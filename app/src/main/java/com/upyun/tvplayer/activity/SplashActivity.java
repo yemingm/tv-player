@@ -33,7 +33,7 @@ public class SplashActivity extends BaseActivity implements UIListener {
         CategoryAPI categoryAPI = new CategoryAPI();
         categoryAPI.getCategory(this);
         ProgramAPI channelAPI = new ProgramAPI();
-        channelAPI.getProgram(this, ProgramAPI.Week.this_week, ProgramAPI.WeekDay.Sun, SharedPreferencesUtils.getChannel(this));
+        channelAPI.getProgram(this, ProgramAPI.Week.this_week, ProgramAPI.WeekDay.Sun, SharedPreferencesUtils.getChannelId(this));
     }
 
     @Override
