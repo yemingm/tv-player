@@ -137,8 +137,6 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         mPageProgram.setAdapter(mAdapterProgram);
         mTitleCategory.setViewPager(mPagerCategory);
         mTitleProgram.setViewPager(mPageProgram);
-        mTitleCategory.setTextColor(R.color.black);
-        mTitleProgram.setTextColor(R.color.black);
     }
 
     @Override
