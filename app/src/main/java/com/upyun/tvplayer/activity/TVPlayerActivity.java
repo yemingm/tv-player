@@ -95,12 +95,10 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     @Subscribe
     public void onEvent(Channel channel) {
         //TODO 切换频道
-//        SharedPreferencesUtils.saveURL(this,channel.getInputAndOutput().get(0).getOutputUrl());
-//        SharedPreferencesUtils.saveChannelId(this,channel.getId());
 //        stopPlay();
 //        startPlay(channel.getInputAndOutput().get(0).getOutputUrl());
 //        SharedPreferencesUtils.saveChannelId(this,channel.getId());
-//        SharedPreferencesUtils.saveURL(this, channel.getInputAndOutput().get(0).getOutputUrl());
+//        SharedPreferencesUtils.saveURL(this, channel.getInputAndOutput().get(0).getSourceUrl());
         Toast.makeText(this, channel.getChannelName(), Toast.LENGTH_SHORT).show();
         Log.e(TAG, channel.toString());
     }
@@ -196,6 +194,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         } catch (Exception e) {
             e.printStackTrace();
         }
+        shutterView.setVisibility(View.VISIBLE);
     }
 
     private void stopPlay() {
@@ -204,7 +203,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         } catch (Smp.SmpException e) {
             e.printStackTrace();
         }
-        shutterView.setVisibility(View.VISIBLE);
+        shutterView.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -251,7 +250,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
                 break;
             case Smp.STATE_IDLE:
                 text += "idle";
-                shutterView.setVisibility(View.INVISIBLE);
+                shutterView.setVisibility(View.VISIBLE);
                 break;
             case Smp.STATE_PREPARING:
                 text += "preparing";
