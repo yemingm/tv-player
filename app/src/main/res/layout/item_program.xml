@@ -3,27 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height">
+        android:layout_height="@dimen/item_height"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        >
+
+        <ImageView
+            android:id="@+id/iv_program_icon"
+            android:layout_width="@dimen/program_icon_height"
+            android:layout_height="@dimen/program_icon_height"
+            android:layout_margin="@dimen/program_icon_margin"
+            android:src="@drawable/play_icon"
+            />
 
         <TextView
-            android:id="@+id/tv_channel_id"
+            android:id="@+id/tv_program_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/channel_item_margin"
+            android:layout_marginLeft="@dimen/program_icon_margin"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_channel_item" />
 
         <TextView
-            android:id="@+id/tv_channel_name"
+            android:id="@+id/tv_program_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:textColor="@android:color/white"
+            android:layout_marginLeft="@dimen/program_program_margin"
             android:textSize="@dimen/text_channel_item" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

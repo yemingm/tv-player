@@ -11,8 +11,9 @@ import android.widget.ListView;
 
 import com.upyun.tvplayer.R;
 import com.upyun.tvplayer.adapter.ProgramListAdapter;
-import com.upyun.tvplayer.model.Category;
+import com.upyun.tvplayer.adapter.ProgramPagerAdapter;
 import com.upyun.tvplayer.model.Program;
+import com.upyun.tvplayer.util.MyApplication;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,11 +24,18 @@ public class ProgramFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     private Program mProgram;
+    private ProgramPagerAdapter adapter;
+
     private ProgramListAdapter mProgramListAdapter;
 
-    public static ProgramFragment newInstance(Program program) {
+    public void setAdapter(ProgramPagerAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    public static ProgramFragment newInstance(Program program, ProgramPagerAdapter adapter) {
         ProgramFragment programFragment = new ProgramFragment();
         programFragment.setProgram(program);
+        programFragment.setAdapter(adapter);
         return programFragment;
     }
 
@@ -48,5 +56,8 @@ public class ProgramFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         EventBus.getDefault().post(mProgramListAdapter.getItem(position));
+        MyApplication.programList = mProgramListAdapter.getItem(position);
+        adapter.notifyDataSetChanged();
+        mProgramListAdapter.notifyDataSetChanged();
     }
 }

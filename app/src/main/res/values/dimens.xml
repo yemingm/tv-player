@@ -3,5 +3,26 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="title_padding">10dp</dimen>
-    <dimen name="menu_width">400px</dimen>
+    <dimen name="menu_width">336px</dimen>
+    <dimen name="menu_height">651px</dimen>
+    <dimen name="menu_margin_left">69px</dimen>
+    <dimen name="menu_margin_top">43px</dimen>
+    <dimen name="menu_margin_bottom">37px</dimen>
+    <dimen name="info_padding_weight">34px</dimen>
+    <dimen name="info_padding_height">21px</dimen>
+    <dimen name="info_width">469px</dimen>
+    <dimen name="info_height">137px</dimen>
+    <dimen name="info_margin_Bottom">112px</dimen>
+    <dimen name="arrow_margin">16px</dimen>
+    <dimen name="channel_item_margin">37px</dimen>
+    <dimen name="item_height">48px</dimen>
+    <dimen name="program_icon_margin">11px</dimen>
+    <dimen name="program_icon_height">25px</dimen>
+
+    <!--textSize-->
+    <dimen name="text_channel_item">20px</dimen>
+    <dimen name="menu_title">25px</dimen>
+    <dimen name="program_program_margin">37px</dimen>
+
+
 </resources>

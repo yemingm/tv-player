@@ -1,11 +1,13 @@
 package com.upyun.tvplayer.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.upyun.tvplayer.R;
 import com.upyun.tvplayer.model.Channel;
 import com.upyun.tvplayer.model.ChannelData;
 
@@ -39,12 +41,25 @@ public class ChannelListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder = new ViewHolder();
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_channel,null,false);
+            holder.tvChannelID = (TextView) convertView.findViewById(R.id.tv_channel_id);
+            holder.tvChannelName = (TextView) convertView.findViewById(R.id.tv_channel_name);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
         Channel channel = getItem(position);
-        TextView textView = new TextView(mContext);
-        textView.setText(channel.getChannelName());
-        textView.setTextSize(30);
-        return textView;
+        holder.tvChannelID.setText(channel.getId()+"");
+        holder.tvChannelName.setText(channel.getChannelName());
+        return convertView;
+    }
+
+    class ViewHolder {
+        TextView tvChannelID;
+        TextView tvChannelName;
     }
 
     public void setChannelData(ChannelData channelData) {

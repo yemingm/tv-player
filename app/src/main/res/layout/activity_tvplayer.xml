@@ -27,6 +27,15 @@
                 android:layout_gravity="center" />
         </com.chnvideo.smp.sdk.SmpFrameLayout>
 
+        <com.upyun.tvplayer.ui.InfoView
+            android:id="@+id/info"
+            android:layout_width="@dimen/info_width"
+            android:layout_height="@dimen/info_height"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/info_margin_Bottom"
+            />
+
     </RelativeLayout>
 
     <!--<include layout="@layout/view_play_content" />-->

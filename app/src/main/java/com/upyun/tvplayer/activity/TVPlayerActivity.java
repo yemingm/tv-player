@@ -9,7 +9,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.chnvideo.smp.sdk.SmoothStreamingTestMediaDrmCallback;
 import com.chnvideo.smp.sdk.SmpFrameLayout;
@@ -27,9 +26,9 @@ import com.upyun.tvplayer.model.Category;
 import com.upyun.tvplayer.model.Channel;
 import com.upyun.tvplayer.model.Program;
 import com.upyun.tvplayer.model.ProgramList;
+import com.upyun.tvplayer.ui.InfoView;
 import com.upyun.tvplayer.ui.QuitAlertDialog;
 import com.upyun.tvplayer.util.MyApplication;
-import com.upyun.tvplayer.util.SharedPreferencesUtils;
 import com.viewpagerindicator.TitlePageIndicator;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,6 +68,8 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     private Smp smp = new Smp();
     private boolean isMenuShow;
     private List<Program> mPrograms;
+    private InfoView mInfoView;
+
 
     @Override
     protected void initVariables() {
@@ -86,27 +87,28 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         mPrograms = ((MyApplication) getApplication()).getPrograms();
         Log.e(TAG, mCategories + ":::" + mPrograms);
 
-        String lastPath = SharedPreferencesUtils.getURL(this);
-        if (lastPath != null) {
-            playAddress = lastPath;
+        if (MyApplication.channel != null) {
+            playAddress = MyApplication.channel.getInputAndOutput().get(0).getOutputUrl();
         }
     }
 
     @Subscribe
     public void onEvent(Channel channel) {
         //TODO 切换频道
+        MyApplication.channel = channel;
 //        stopPlay();
 //        startPlay(channel.getInputAndOutput().get(0).getOutputUrl());
 //        SharedPreferencesUtils.saveChannelId(this,channel.getId());
 //        SharedPreferencesUtils.saveURL(this, channel.getInputAndOutput().get(0).getSourceUrl());
-        Toast.makeText(this, channel.getChannelName(), Toast.LENGTH_SHORT).show();
+        showInfo();
         Log.e(TAG, channel.toString());
     }
 
     @Subscribe
     public void onEvent(ProgramList programList) {
         //TODO 切换节目单
-        Toast.makeText(this, programList.getProgramName(), Toast.LENGTH_SHORT).show();
+        MyApplication.programList = programList;
+        mInfoView.show();
         Log.e(TAG, programList.toString());
     }
 
@@ -128,6 +130,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         mTitleProgram = (TitlePageIndicator) findViewById(R.id.title_item);
         mPagerCategory = (ViewPager) findViewById(R.id.pager_channel);
         mPageProgram = (ViewPager) findViewById(R.id.pager_item);
+        mInfoView = (InfoView) findViewById(R.id.info);
 
         mAdapterCategory = new CategoryPagerAdapter(getSupportFragmentManager(), mCategories);
         mAdapterProgram = new ProgramPagerAdapter(getSupportFragmentManager(), mPrograms);
@@ -178,6 +181,16 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     protected void onResume() {
         super.onResume();
         startPlay(playAddress);
+        showInfo();
+    }
+
+    private void showInfo() {
+        if (MyApplication.channel != null && MyApplication.programList != null) {
+            mInfoView.setTitleText(MyApplication.channel.getId() + "   " + MyApplication.channel.getDisplayName());
+            mInfoView.setItemText(MyApplication.programList.getProgramName());
+            mInfoView.setTargetText(MyApplication.channel.getStatus() + MyApplication.channel.getSwitchVideoStatus());
+            mInfoView.show();
+        }
     }
 
     @Override

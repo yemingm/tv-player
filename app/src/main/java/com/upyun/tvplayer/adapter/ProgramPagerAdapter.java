@@ -14,7 +14,8 @@ import java.util.List;
 public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
 
 
-    protected static final String[] CONTENT = new String[]{"this_Mon", "this_Tue", "this_Wed", "this_Thu", "this_Fri", "this_Sat", "this_Sun", "next_Mon", "next_Tue", "next_Wed", "next_Thu", "next_Fri", "next_Sat", "next_Sun"};
+    //    protected static final String[] CONTENT = new String[]{"this_Mon", "this_Tue", "this_Wed", "this_Thu", "this_Fri", "this_Sat", "this_Sun", "next_Mon", "next_Tue", "next_Wed", "next_Thu", "next_Fri", "next_Sat", "next_Sun"};
+    protected static final String[] CONTENT = new String[]{"今天", "明天", "后天", "大后天"};
     protected static final int[] ICONS = new int[]{
             R.drawable.cover
     };
@@ -31,7 +32,7 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
         //TODO
         //模拟数据
 //        return ProgramFragment.newInstance(mPrograms.get(position));
-        return ProgramFragment.newInstance(new Program());
+        return ProgramFragment.newInstance(new Program(), this);
     }
 
     @Override
@@ -54,5 +55,10 @@ public class ProgramPagerAdapter extends FragmentPagerAdapter implements IconPag
     @Override
     public int getIconResId(int index) {
         return ICONS[0];
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 }

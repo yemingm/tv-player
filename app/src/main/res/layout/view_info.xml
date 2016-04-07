@@ -1,5 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/menu_back"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/info_padding_weight"
+    android:paddingRight="@dimen/info_padding_weight"
+    android:paddingTop="@dimen/info_padding_height"
+    android:paddingBottom="@dimen/info_padding_height"
 
-</RelativeLayout>
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:textColor="@android:color/white"
+            android:text="01  CCTV1"/>
+
+        <TextView
+            android:id="@+id/tv_item"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/white"
+            android:text="节目名称"
+            />
+
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_info"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <TextView
+        android:id="@+id/tv_target"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:textColor="@android:color/white"
+        android:text="即将播放：节目名字 10:00"
+        />
+
+</LinearLayout>
