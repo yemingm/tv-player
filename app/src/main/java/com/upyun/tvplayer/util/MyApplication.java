@@ -1,6 +1,7 @@
 package com.upyun.tvplayer.util;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.upyun.tvplayer.model.Category;
 import com.upyun.tvplayer.model.Channel;
@@ -37,5 +38,6 @@ public class MyApplication extends Application {
         super.onCreate();
         channel = LocalSave.getChannel(getApplicationContext());
         programList = LocalSave.getProgram(getApplicationContext());
+        Log.e("hahaah", (channel != null) + ":::" + (programList != null));
     }
 }

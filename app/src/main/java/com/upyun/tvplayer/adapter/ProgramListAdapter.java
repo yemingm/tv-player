@@ -77,8 +77,6 @@ public class ProgramListAdapter extends BaseAdapter {
         }
 
         if (MyApplication.programList != null && MyApplication.programList.getProgramName().endsWith(programList.getProgramName()) && MyApplication.programList.getStartTime() == programList.getStartTime()) {
-//        Log.e("hahahahha", (MyApplication.programList != null && MyApplication.programList == programList)+"");
-//        if (MyApplication.programList != null && MyApplication.programList == programList) {
             holder.playIcon.setVisibility(View.VISIBLE);
         } else {
             holder.playIcon.setVisibility(View.INVISIBLE);

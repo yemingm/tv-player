@@ -17,7 +17,9 @@ public class LocalSave {
 
     public static boolean saveChannel(Context context, Channel channel) {
         File tempFile = new File(context.getCacheDir(), CHANNEL);
+        tempFile.delete();
         try {
+            tempFile.createNewFile();
             ObjectOutputStream objectOutput = new ObjectOutputStream(new FileOutputStream(tempFile));
             objectOutput.writeObject(channel);
         } catch (Exception e) {
@@ -38,7 +40,9 @@ public class LocalSave {
 
     public static boolean saveProgram(Context context, ProgramList channel) {
         File tempFile = new File(context.getCacheDir(), PROGRAM);
+        tempFile.delete();
         try {
+            tempFile.createNewFile();
             ObjectOutputStream objectOutput = new ObjectOutputStream(new FileOutputStream(tempFile));
             objectOutput.writeObject(channel);
         } catch (Exception e) {
@@ -56,6 +60,4 @@ public class LocalSave {
             return null;
         }
     }
-
-
 }

@@ -108,7 +108,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     public void onEvent(ProgramList programList) {
         //TODO 切换节目单
         MyApplication.programList = programList;
-        mInfoView.show();
+        showInfo();
         Log.e(TAG, programList.toString());
     }
 
@@ -189,8 +189,8 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
             mInfoView.setTitleText(MyApplication.channel.getId() + "   " + MyApplication.channel.getDisplayName());
             mInfoView.setItemText(MyApplication.programList.getProgramName());
             mInfoView.setTargetText(MyApplication.channel.getStatus() + MyApplication.channel.getSwitchVideoStatus());
-            mInfoView.show();
         }
+        mInfoView.show();
     }
 
     @Override
