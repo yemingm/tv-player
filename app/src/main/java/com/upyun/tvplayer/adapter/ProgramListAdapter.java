@@ -76,6 +76,7 @@ public class ProgramListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        //TODO 因为是模拟数据，会导致不同列相同位置数据相同，更换为真实数据就好
         if (MyApplication.programList != null && MyApplication.programList.getProgramName().endsWith(programList.getProgramName()) && MyApplication.programList.getStartTime() == programList.getStartTime()) {
             holder.playIcon.setVisibility(View.VISIBLE);
         } else {

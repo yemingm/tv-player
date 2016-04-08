@@ -28,7 +28,7 @@ public class InfoView extends RelativeLayout {
     }
 
     public void setTargetText(CharSequence text) {
-        targetView.setText("即将播放："+text);
+        targetView.setText("即将播放：" + text);
     }
 
     public void setProgress(int progress) {
@@ -71,6 +71,7 @@ public class InfoView extends RelativeLayout {
         itemView = (TextView) findViewById(R.id.tv_item);
         targetView = (TextView) findViewById(R.id.tv_target);
         progressBar = (ProgressBar) findViewById(R.id.pb_info);
+        progressBar.setProgress(20);
         setVisibility(INVISIBLE);
 
     }
