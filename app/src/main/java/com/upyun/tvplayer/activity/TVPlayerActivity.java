@@ -50,8 +50,8 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     private ProgramPagerAdapter mAdapterProgram;
     private List<Category> mCategories;
 
-    //    private String playAddress = "http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch1/appleman.m3u8";
-    private String playAddress = "http://live.dltv.cn:81/live5/live5_video.m3u8";
+//    private String playAddress = "http://live.dltv.cn:81/live5/live5_video.m3u8";
+    private String playAddress = "http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8";
 
     public static final int TYPE_DASH = 0;
     public static final int TYPE_SS = 1;
@@ -88,7 +88,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
         Log.e(TAG, mCategories + ":::" + mPrograms);
 
         if (MyApplication.channel != null) {
-            playAddress = MyApplication.channel.getInputAndOutput().get(0).getOutputUrl();
+//            playAddress = MyApplication.channel.getInputAndOutput().get(0).getOutputUrl();
         }
     }
 
