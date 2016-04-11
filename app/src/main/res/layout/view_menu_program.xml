@@ -8,9 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/menu_margin_bottom"
-        android:layout_marginRight="@dimen/menu_margin_left"
-        android:layout_marginTop="@dimen/menu_margin_top"
         android:background="@color/menu_back"
         android:orientation="vertical">
 
@@ -29,8 +26,8 @@
 
             <com.viewpagerindicator.TitlePageIndicator
                 android:id="@+id/title_item"
-                android:layout_centerVertical="true"
-                style="@style/CustomTitlePageIndicator" />
+                style="@style/CustomTitlePageIndicator"
+                android:layout_centerVertical="true" />
 
             <ImageView
                 android:id="@+id/program_arrow_right"

@@ -8,9 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/menu_margin_bottom"
-        android:layout_marginLeft="@dimen/menu_margin_left"
-        android:layout_marginTop="@dimen/menu_margin_top"
         android:background="@color/menu_back"
         android:orientation="vertical">
 

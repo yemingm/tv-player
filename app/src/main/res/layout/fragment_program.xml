@@ -9,7 +9,7 @@
         android:id="@+id/lv_program"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:listSelector="@drawable/item_background"
+        android:listSelector="@drawable/item_background_selector"
         />
 
 </LinearLayout>

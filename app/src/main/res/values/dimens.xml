@@ -3,16 +3,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="title_padding">10dp</dimen>
-    <dimen name="menu_width">336px</dimen>
-    <dimen name="menu_height">651px</dimen>
-    <dimen name="menu_margin_left">69px</dimen>
-    <dimen name="menu_margin_top">43px</dimen>
-    <dimen name="menu_margin_bottom">37px</dimen>
+    <dimen name="menu_width">267px</dimen>
     <dimen name="info_padding_weight">34px</dimen>
     <dimen name="info_padding_height">21px</dimen>
-    <dimen name="info_width">469px</dimen>
-    <dimen name="info_height">137px</dimen>
-    <dimen name="info_margin_Bottom">112px</dimen>
+    <dimen name="info_width">467px</dimen>
+    <dimen name="info_height">133px</dimen>
+    <dimen name="info_margin_Bottom">109px</dimen>
     <dimen name="arrow_margin">16px</dimen>
     <dimen name="channel_item_margin">37px</dimen>
     <dimen name="item_height">48px</dimen>
@@ -20,10 +16,18 @@
     <dimen name="program_icon_height">25px</dimen>
     <dimen name="program_program_margin">37px</dimen>
 
-    <!--textSize-->
-    <dimen name="text_channel_item">20px</dimen>
-    <dimen name="text_menu_title">25px</dimen>
-    <dimen name="text_info">17px</dimen>
+    <dimen name="button_width">140px</dimen>
+    <dimen name="button_height">47px</dimen>
+    <dimen name="button_margin_h">40px</dimen>
+    <dimen name="button_margin_v">27px</dimen>
+    <dimen name="dialog_info_margin_top">50px</dimen>
+    <dimen name="dialog_width">400px</dimen>
+    <dimen name="dialog_height">193px</dimen>
+    <dimen name="text_dialog_bt">16px</dimen>
 
+    <!--textSize-->
+    <dimen name="text_channel_item">19px</dimen>
+    <dimen name="text_menu_title">21px</dimen>
+    <dimen name="text_info">17px</dimen>
 
 </resources>

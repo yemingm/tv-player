@@ -23,7 +23,7 @@
             android:layout_alignParentLeft="true"
             android:text="01  CCTV1"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_channel_item" />
+            android:textSize="@dimen/text_menu_title" />
 
         <TextView
             android:id="@+id/tv_item"
@@ -32,7 +32,7 @@
             android:layout_alignParentRight="true"
             android:text="节目名称"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_channel_item" />
+            android:textSize="@dimen/text_menu_title" />
 
 
     </RelativeLayout>
@@ -42,7 +42,8 @@
         style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        />
 
     <TextView
         android:id="@+id/tv_target"

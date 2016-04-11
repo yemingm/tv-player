@@ -5,7 +5,10 @@
     <color name="colorAccent">#FF4081</color>
     <color name="black">#000000</color>
     <color name="menu_back">#99132531</color>
+    <color name="dialog_back">#132531</color>
     <color name="separator">#88888888</color>
-    <color name="item_focused">#3a6ea9</color>
-    <color name="item_focused_stroke">#596fb2f6</color>
+    <color name="item_focused">#993a6ea9</color>
+    <color name="item_focused_stroke">#6fb2f6</color>
+    <color name="bt_background_normal">#5a646a</color>
+    <color name="bt_background_stroke">#727f87</color>
 </resources>
