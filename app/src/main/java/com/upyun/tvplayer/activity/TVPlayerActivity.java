@@ -50,7 +50,7 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     private ProgramPagerAdapter mAdapterProgram;
     private List<Category> mCategories;
 
-//    private String playAddress = "http://live.dltv.cn:81/live5/live5_video.m3u8";
+    //    private String playAddress = "http://live.dltv.cn:81/live5/live5_video.m3u8";
     private String playAddress = "http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8";
 
     public static final int TYPE_DASH = 0;
@@ -142,25 +142,28 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-
         if (!isMenuShow) {
-            switch (event.getKeyCode()) {
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    mDrawer.openDrawer(mMenuChannel);
-                    mMenuChannel.requestFocus();
-                    isMenuShow = true;
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    mDrawer.openDrawer(mMenuProgram);
-                    mMenuProgram.requestFocus();
-                    isMenuShow = true;
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    //TODO
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    //TODO
-                    return true;
+            synchronized (TVPlayerActivity.class) {
+                if (!isMenuShow) {
+                    switch (event.getKeyCode()) {
+                        case KeyEvent.KEYCODE_DPAD_RIGHT:
+                            isMenuShow = true;
+                            mDrawer.openDrawer(mMenuChannel);
+                            mMenuChannel.requestFocus();
+                            return true;
+                        case KeyEvent.KEYCODE_DPAD_LEFT:
+                            isMenuShow = true;
+                            mDrawer.openDrawer(mMenuProgram);
+                            mMenuProgram.requestFocus();
+                            return true;
+                        case KeyEvent.KEYCODE_DPAD_UP:
+                            //TODO
+                            return true;
+                        case KeyEvent.KEYCODE_DPAD_DOWN:
+                            //TODO
+                            return true;
+                    }
+                }
             }
         }
         return super.dispatchKeyEvent(event);
@@ -169,9 +172,13 @@ public class TVPlayerActivity extends BaseActivity implements SmpEngine.Listener
     @Override
     public void onBackPressed() {
         if (isMenuShow) {
-            mDrawer.closeDrawer(mMenuProgram);
-            mDrawer.closeDrawer(mMenuChannel);
-            isMenuShow = false;
+            synchronized (TVPlayerActivity.class) {
+                if (isMenuShow) {
+                    mDrawer.closeDrawer(mMenuProgram);
+                    mDrawer.closeDrawer(mMenuChannel);
+                    isMenuShow = false;
+                }
+            }
         } else {
             QuitAlertDialog.show(this);
         }

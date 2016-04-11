@@ -24,6 +24,7 @@
     <dimen name="dialog_width">400px</dimen>
     <dimen name="dialog_height">193px</dimen>
     <dimen name="text_dialog_bt">16px</dimen>
+    <dimen name="progress_height">6px</dimen>
 
     <!--textSize-->
     <dimen name="text_channel_item">19px</dimen>
