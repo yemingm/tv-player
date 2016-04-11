@@ -6,4 +6,6 @@
     <color name="black">#000000</color>
     <color name="menu_back">#99132531</color>
     <color name="separator">#88888888</color>
+    <color name="item_focused">#3a6ea9</color>
+    <color name="item_focused_stroke">#596fb2f6</color>
 </resources>

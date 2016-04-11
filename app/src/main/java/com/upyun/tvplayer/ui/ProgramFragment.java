@@ -57,7 +57,9 @@ public class ProgramFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         EventBus.getDefault().post(mProgramListAdapter.getItem(position));
         MyApplication.programList = mProgramListAdapter.getItem(position);
-        adapter.notifyDataSetChanged();
-        mProgramListAdapter.notifyDataSetChanged();
+        if (adapter != null && mProgramListAdapter != null) {
+            adapter.notifyDataSetChanged();
+            mProgramListAdapter.notifyDataSetChanged();
+        }
     }
 }
